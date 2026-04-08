@@ -1,0 +1,18 @@
+# Web
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Native
+native/*.xcodeproj/xcuserdata/
+native/*.xcworkspace/xcuserdata/
+native/build/
+native/DerivedData/
+
+# macOS
+.DS_Store
+*.swp
+
+# Env
+.env
+.env.local
