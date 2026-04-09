@@ -53,5 +53,14 @@ describe('loadImageFile', () => {
     const fakeError = new ErrorEvent('error', { message: 'decode failed' });
     mockWorkerInstance.onerror?.(fakeError);
     await expect(promise).rejects.toBe(fakeError);
+    expect(mockWorkerInstance.terminate).toHaveBeenCalledOnce();
+  });
+
+  it('rejects with an Error when worker posts an error message', async () => {
+    const file = new File([''], 'bad.jpg', { type: 'image/jpeg' });
+    const promise = loadImageFile(file);
+    mockWorkerInstance.onmessage?.({ data: { error: 'Failed to decode image' } } as MessageEvent);
+    await expect(promise).rejects.toThrow('Failed to decode image');
+    expect(mockWorkerInstance.terminate).toHaveBeenCalledOnce();
   });
 });
