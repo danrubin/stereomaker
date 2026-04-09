@@ -36,9 +36,17 @@ export function DropZone({ eye, onFile, fileName }: DropZoneProps) {
       tabIndex={0}
       aria-label={`Drop ${eye} eye image or click to select`}
       onClick={() => inputRef.current?.click()}
-      onKeyDown={(e) => e.key === 'Enter' && inputRef.current?.click()}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // prevent Space from scrolling the page
+          inputRef.current?.click();
+        }
+      }}
       onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
-      onDragLeave={() => setIsDragOver(false)}
+      onDragLeave={(e) => {
+        // Only clear when leaving the drop zone entirely, not when entering a child element
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setIsDragOver(false);
+      }}
       onDrop={handleDrop}
       className={[
         'flex flex-col items-center justify-center gap-2',
