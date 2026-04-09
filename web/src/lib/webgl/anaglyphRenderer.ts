@@ -71,7 +71,9 @@ export class AnaglyphRenderer {
     gl.useProgram(this.program);
     gl.uniform1i(gl.getUniformLocation(this.program, 'uLeftEye'), 0);
     gl.uniform1i(gl.getUniformLocation(this.program, 'uRightEye'), 1);
-    this.uShiftX = gl.getUniformLocation(this.program, 'uShiftX')!;
+    const uShiftX = gl.getUniformLocation(this.program, 'uShiftX');
+    if (!uShiftX) throw new Error('uShiftX uniform not found in shader program');
+    this.uShiftX = uShiftX;
   }
 
   /** Upload new left/right bitmaps. Call whenever images change. */
