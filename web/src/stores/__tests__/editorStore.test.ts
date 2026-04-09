@@ -3,6 +3,8 @@ import { useEditorStore, getBitmap, setBitmap } from '../editorStore';
 
 describe('editorStore', () => {
   beforeEach(() => {
+    setBitmap('left', null);
+    setBitmap('right', null);
     useEditorStore.setState({
       leftMeta: null,
       rightMeta: null,

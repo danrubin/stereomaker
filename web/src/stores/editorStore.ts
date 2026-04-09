@@ -9,7 +9,7 @@ export function getBitmap(eye: 'left' | 'right'): ImageBitmap | null {
   return bitmaps[eye];
 }
 
-export function setBitmap(eye: 'left' | 'right', bitmap: ImageBitmap): void {
+export function setBitmap(eye: 'left' | 'right', bitmap: ImageBitmap | null): void {
   bitmaps[eye] = bitmap;
 }
 
